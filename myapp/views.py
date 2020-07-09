@@ -6,7 +6,7 @@ from myapp.models import User
 from handle.write_letter import save
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
-
+import json
 #import time,simplejson,json,os,commands
 
 # Create your views here.
@@ -14,41 +14,46 @@ def index(request):
     return render(request,'base.html')
 
 #http://127.0.0.1:8082/api
+# 0 失败 1 成功 register
 def api(req):
     if req.method == "POST":
-        username = req.POST.get("username", None)
-        password = req.POST.get("password", None)
-        email = req.POST.get("email", None)
-    username=""
-    password="123"
-    email="123@qq.com"
+        dic = req.GET.dict()
+        print(dic)
+        username = dic['username']
+        password = dic['password']
+        email = dic['email']
     sql='''select * from myapp_user where username="{}"'''.format(username)
     res=connect(sql)
+    re=1
     for u in res:
-        print(u)
-        return JsonResponse({ "data": "用户存在"})
+        print('用户存在')
+        re=0
+        return HttpResponse('%d'%(re))
     User.objects.create(
         username=username,
         password=password,
         email=email
     )
-    data=username
-    return JsonResponse({"status": 200, "msg": "OK", "data": data})
+    return HttpResponse('%d'%(re))
+
 #登陆模块
 def login(req):
     if req.method == "POST":
-        username = req.POST.get("username", None)
-        password = req.POST.get("password", None)
-    username="lidan"
-    password="123"
+        dic = req.GET.dict()
+        print(dic)
+        username = dic['username']
+        password = dic['password']
     sql='''select *  from myapp_user where username="{}" and password="{}" '''.format(username,password)
     res=connect(sql)
     data = username
+    flag = 0
     for i in res:
-        print("登陆成功")
-        return JsonResponse({"status": 200, "msg": "登陆成功", "data": data})
-
-    return JsonResponse({"status": 200, "msg": "登陆失败，用户名或者密码错误", "data": data})
+        loginbean = {}
+        loginbean['username'] = username
+        req.session['loginbean'] = loginbean
+        flag = json.dumps(loginbean)
+        print(flag)
+    return HttpResponse(flag,content_type='application/json')
 def write_letter(req):
     if req.method == "POST":
         username = req.POST.get("username", None)
@@ -77,3 +82,16 @@ def all_message(req):
     #     print(i)
     return JsonResponse({"status": 200, "msg": "OK", "data":0})
 
+def getSession(request):
+    print(request.session)
+    if 'loginbean' in request.session:
+        loginbean =request.session['loginbean']
+        return HttpResponse(json.dumps(loginbean))
+    else:
+        return HttpResponse(0)
+
+def logout(request):
+    print(request.session)
+    if 'loginbean' in request.session:
+        del request.session['loginbean']
+    return HttpResponse(1)
