@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="ssh -p10937 ld@s3.nsloop.com">
+    <serverData>
+      <paths name="ld_school_code">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="http://s3.nlsoop.com" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="ssh -p10937 ld@s3.nsloop.com">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/ld" local="$PROJECT_DIR$" web="" />
+            <mapping local="" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

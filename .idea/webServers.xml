@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="32ce207e-4dd0-4edb-99da-f371498cfb6d" name="ssh -p10937 ld@s3.nsloop.com">
+        <fileTransfer accessType="SFTP" host="s3.nsloop.com" port="10937" sshConfigId="ff56f7f4-db60-48c5-ba7a-e44f0e5c2534" sshConfig="ssh -p10937 ld@s3.nsloop.com">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="4bc5c7f7-cb96-4984-a23a-6bb8b417f6c7" name="ld_school_code" url="http://s3.nlsoop.com">
+        <fileTransfer rootFolder="/home/ld" accessType="SFTP" host="s3.nsloop.com" port="10937" sshConfigId="afa64e18-4b4b-4709-9f82-89e4d5d2904a" sshConfig="ld_school_code">
+          <advancedOptions>
+            <advancedOptions muteSftpMessages="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

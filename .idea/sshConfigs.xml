@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="s3.nsloop.com" id="ff56f7f4-db60-48c5-ba7a-e44f0e5c2534" localPort="10937" port="10937" customName="ssh -p10937 ld@s3.nsloop.com" nameFormat="CUSTOM" username="ld" />
+    </configs>
+  </component>
+</project>
