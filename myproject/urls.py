@@ -28,3 +28,4 @@ urlpatterns = [
     re_path(r'^write_letter/save/',views.write_letter),
     re_path(r'^all_message/',views.all_message)
 ]
+# test
