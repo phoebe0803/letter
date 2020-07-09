@@ -58,16 +58,22 @@ def write_letter(req):
         flag = req.POST.get("flag", None)
     username="lidan"
     context="这是一个内容文档"
-    letter_topic="爱情"
+    letter_topic="0"
     right="0"
     flag="0"
     data=[username,context,letter_topic,right,flag]
     save(data)
     return JsonResponse({"status": 200, "msg": "OK", "data":0 })
+#http://127.0.0.1:8001/all_message/?page=9
 def all_message(req):
-    sql='''select * from myapp_letter '''
-    res=connect(sql)
-    for i in res:
-        print(i)
+    page_num=req.GET.get('page')
+    print(page_num)
+    # if req.method == "POST":
+    #     letter_topic = req.POST.get("letter_topic", None)
+
+    # sql='''select * from myapp_letter where letter_topic="{}"'''.format(letter_topic)
+    # res=connect(sql)
+    # for i in res:
+    #     print(i)
     return JsonResponse({"status": 200, "msg": "OK", "data":0})
 
