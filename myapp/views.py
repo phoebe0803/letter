@@ -3,7 +3,8 @@
 from django.shortcuts import render
 from myapp.mysql import connect
 from myapp.models import User
-from handle.letter import save,get_letter,get_all_letter
+from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,delete_collect_letter_from_table
+from handle.xinli import  get_message,get_xinli_all_message
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
 import json
@@ -53,6 +54,7 @@ def login(req):
         flag = json.dumps(loginbean)
         print(flag)
     return HttpResponse(flag,content_type='application/json')
+
 def write_letter(req):
     if req.method == "POST":
         username = req.POST.get("username", None)
@@ -67,7 +69,8 @@ def write_letter(req):
     flag="0"
     data=[username,context,letter_topic,right,flag]
     save(data)
-    return JsonResponse({"status": 200, "msg": "OK", "data":0 })
+    return HttpResponse({"status": 200, "msg": "OK", "data":0 })
+
 #http://127.0.0.1:8001/all_message?page=9&letter_topic="爱情"
 #信件广场上得到一页6个并且返回所有
 def all_message(req):
@@ -79,20 +82,40 @@ def all_message(req):
         ##有分类的主题
         if letter_topic:
             data_list=get_letter(letter_topic,page)
+            data=json.dumps(data_list)
 
         else:
             data_list=get_all_letter(page)
+            data = json.dumps(data_list)
+    return HttpResponse({"status": 200, "msg": "OK", "data":data})
 
+#localhost/all_message/collect_letter
+def collect_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['letterID']
+        username=dic['username']
+        insert_collect_letter(username,letter_id)
 
+def delete_collect_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['letterID']
+        username = dic['username']
+        delete_collect_letter_from_table(username, letter_id)
 
-    # if req.method == "POST":
-    #     letter_topic = req.POST.get("letter_topic", None)
+#send_xinli_message?page=1&top=“焦虑症”
+def send_xinli_message(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        page = dic['page']
+        top = dic['top']
+        if top:
+            data_list=get_message(top,page)
+        else:
+            data_list=get_xinli_all_message(page)
+    return JsonResponse({"status": 200, "msg": "OK", "data": data_list})
 
-    # sql='''select * from myapp_letter where letter_topic="{}"'''.format(letter_topic)
-    # res=connect(sql)
-    # for i in res:
-    #     print(i)
-    return JsonResponse({"status": 200, "msg": "OK", "data":data_list})
 
 def getSession(request):
     print(request.session)

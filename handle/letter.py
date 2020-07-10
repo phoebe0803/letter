@@ -59,3 +59,11 @@ def get_all_letter(page):
     data_list.append(t)
     return data_list
 
+def insert_collect_letter(username,letter_id):
+    letter_id=int(letter_id)
+    sql='''insert into myapp_collect (username,letter_id) values({},{}) '''.format(username,letter_id)
+    connect(sql)
+
+def delete_collect_letter_from_table(username,letter_id):
+    letter_id = int(letter_id)
+    sql='''DELETE FROM myapp_collect WHERE username = {} and letter_id={} '''.format(username,letter_id)

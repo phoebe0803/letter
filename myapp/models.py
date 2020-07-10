@@ -24,9 +24,9 @@ class Xinli(models.Model):
     #delete:"0,1"(1删除了)
     delete=models.IntegerField(default=0)
 class collect(models.Model):
-    username = models.CharField(max_length=64)
-    xinli_id=models.IntegerField()
-    letter_id=models.IntegerField()
+    username = models.CharField(max_length=64,default='')
+    xinli_id=models.IntegerField(default=0)
+    letter_id=models.IntegerField(default=0)
     #delete:"0,1"(1删除了)
     delete=models.IntegerField(default=0)
 
