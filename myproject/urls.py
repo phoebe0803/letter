@@ -31,6 +31,7 @@ urlpatterns = [
     re_path(r'^delete_collect_letter$',views.delete_collect_letter),
     re_path(r'^collect_xinli$', views.collect_xinli),
     re_path(r'^delete_collect_xinli$', views.delete_collect_xinli),
+    re_path(r'^show_collect$', views.show_collect),
     re_path(r'^send_xinli_message$',views.send_xinli_message),
     re_path(r'^getSession$',views.getSession),
     re_path(r'^logout$',views.logout),

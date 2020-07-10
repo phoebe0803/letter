@@ -135,6 +135,13 @@ def send_xinli_message(req):
     data = json.dumps(data_list)
     return HttpResponse(data)
 
+def show_collect(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        username = dic['username']
+        collect_type = dic['collect_type']
+        do_show_collect(username,collect_type)
+
 
 def getSession(request):
     print(request.session)
