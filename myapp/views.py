@@ -8,6 +8,9 @@ from handle.xinli import  get_message,get_xinli_all_message
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
 import json
+import time
+import os
+from django.core import serializers
 #import time,simplejson,json,os,commands
 
 # Create your views here.
@@ -57,22 +60,30 @@ def login(req):
 
 def write_letter(req):
     if req.method == "POST":
-        username = req.POST.get("username", None)
-        context=req.POST.get("context", None)
-        letter_topic=req.POST.get("letter_topic",None)
-        right = req.POST.get("right", None)
-        flag = req.POST.get("flag", None)
-    username="lidan"
-    context="这是一个内容文档"
-    letter_topic="0"
-    right="0"
-    flag="0"
+        dic = req.GET.dict()
+        print(dic)
+        username = dic['username']
+        context=dic['context']
+        letter_topic=dic['letter_topic']
+        right = dic['right']
+        flag = dic['flag']
+    # username="lidan"
+    # context="这是一个内容文档"
+    # letter_topic="0"
+    # right="0"
+    # flag="0"
     data=[username,context,letter_topic,right,flag]
     save(data)
+
     return HttpResponse({"status": 200, "msg": "OK", "data":0 })
+
 
 #http://127.0.0.1:8001/all_message?page=9&letter_topic="爱情"
 #信件广场上得到一页6个并且返回所有
+    re=1
+    return HttpResponse(re)
+#http://127.0.0.1:8001/all_message/?page=9
+
 def all_message(req):
     print(req)
     if req.method == "GET" or req.method == "POST":
@@ -130,3 +141,11 @@ def logout(request):
     if 'loginbean' in request.session:
         del request.session['loginbean']
     return HttpResponse(1)
+
+def userlist(req):
+    loginbean = req.session['loginbean']
+    if loginbean == None:
+        return HttpResponse("0")
+    rs = User.objects.filter().all()
+    jsonArr = serializers.serialize("json", rs)
+    return HttpResponse(jsonArr)
