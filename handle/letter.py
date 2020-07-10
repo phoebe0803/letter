@@ -15,7 +15,7 @@ def get_letter(letter_topic,page):
     page=int(page)
     start=(page-1)*6
     end=page*6
-    sql = '''select * from myapp_letter where "right"=1 and flag=1 and letter_topic={} and id>{} and id <={} and "delete"=0'''.format(letter_topic,start,end)
+    sql = '''select * from myapp_letter where "right"=0 and flag=1 and letter_topic={} and id>{} and id <={} and "delete"=0'''.format(letter_topic,start,end)
     res = connect(sql)
     data_list=[]
     for i in res:
