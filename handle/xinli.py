@@ -1,5 +1,6 @@
 #coding=utf-8
 from myapp.mysql import connect
+
 def get_message(top,page):
     # 比如page=2 那么start就是7开始到12
     page = int(page)
@@ -53,3 +54,15 @@ def get_xinli_all_message(page):
     t = {"all_count": num}
     data_list.append(t)
     return data_list
+
+
+def do_collect_xinli(username,xinli_id):
+    letter_id=int(xinli_id)
+    sql='''insert into myapp_xinli (username,xinli_id) values({},{}) '''.format(username,xinli_id)
+    connect(sql)
+
+def delete_collect_xinli_from_table(username,xinli_id):
+    letter_id = int(xinli_id)
+    sql='''DELETE FROM myapp_collect WHERE username = {} and xili_id={} '''.format(username,xinli_id)
+    connect(sql)
+

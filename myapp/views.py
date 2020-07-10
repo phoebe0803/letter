@@ -4,7 +4,7 @@ from django.shortcuts import render
 from myapp.mysql import connect
 from myapp.models import User
 from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,delete_collect_letter_from_table
-from handle.xinli import  get_message,get_xinli_all_message
+from handle.xinli import  get_message,get_xinli_all_message,do_collect_xinli,delete_collect_xinli_from_table
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
 import json
@@ -59,7 +59,7 @@ def login(req):
     return HttpResponse(flag,content_type='application/json')
 
 def write_letter(req):
-    if req.method == "POST":
+    if req.method == "POST" or req.method == "GET":
         dic = req.GET.dict()
         print(dic)
         username = dic['username']
@@ -74,14 +74,6 @@ def write_letter(req):
     # flag="0"
     data=[username,context,letter_topic,right,flag]
     save(data)
-
-
-
-
-#http://127.0.0.1:8001/all_message?page=9&letter_topic="爱情"
-#信件广场上得到一页6个并且返回所有
-    re=1
-    return HttpResponse(re)
 #http://127.0.0.1:8001/all_message/?page=9
 
 def all_message(req):
@@ -114,6 +106,21 @@ def delete_collect_letter(req):
         letter_id = dic['letterID']
         username = dic['username']
         delete_collect_letter_from_table(username, letter_id)
+
+
+def collect_xinli(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        xinli_id = dic['xinliID']
+        username=dic['username']
+        do_collect_xinli(username,xinli_id)
+
+def delete_collect_xinli(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        xinli_id = dic['xinliID']
+        username = dic['username']
+        delete_collect_xinli_from_table(username, xinli_id)
 
 #send_xinli_message?page=1&top=“焦虑症”
 def send_xinli_message(req):
