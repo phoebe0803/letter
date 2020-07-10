@@ -13,8 +13,11 @@ def save(data):
 def get_letter(letter_topic,page):
     #比如page=2 那么start就是7开始到12
     page=int(page)
+    #page=1 start = 0 end =6
+    #page=2 start=6 end=12
+    # data_list = data_list[start:end]
     start=(page-1)*6
-    end=page*6+1
+    end=page*6
     sql = '''select * from myapp_letter where "right"=0 and flag=1 and letter_topic={}  "delete"=0'''.format(letter_topic)
     res = connect(sql)
     data_list=[]
@@ -39,7 +42,7 @@ def get_letter(letter_topic,page):
 def get_all_letter(page):
     page = int(page)
     start = (page - 1) * 6
-    end = page * 6+1
+    end = page * 6
     sql = '''select * from myapp_letter where "right"=0 and flag=1  and "delete"=0'''
     res = connect(sql)
     data_list = []
