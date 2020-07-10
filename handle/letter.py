@@ -15,7 +15,7 @@ def get_letter(letter_topic,page):
     page=int(page)
     start=(page-1)*6
     end=page*6
-    sql = '''select * from myapp_letter where "right"=0 and flag=1 and letter_topic={} and id>{} and id <={} and "delete"=0'''.format(letter_topic,start,end)
+    sql = '''select * from myapp_letter where "right"=0 and flag=1 and letter_topic={}  "delete"=0'''.format(letter_topic)
     res = connect(sql)
     data_list=[]
     for i in res:
@@ -27,6 +27,7 @@ def get_letter(letter_topic,page):
            "collect_flag":0
            }
         data_list.append(t)
+    data_list = data_list[start:end]
     sql2='''select count(*) from myapp_letter where "right"=0 and flag=1 and letter_topic={} and "delete"=0'''.format(letter_topic)
     res2 = connect(sql2)
     for i in res2:
@@ -39,7 +40,7 @@ def get_all_letter(page):
     page = int(page)
     start = (page - 1) * 6
     end = page * 6
-    sql = '''select * from myapp_letter where "right"=0 and flag=1 and id>{} and id <={} and "delete"=0'''.format( start, end)
+    sql = '''select * from myapp_letter where "right"=0 and flag=1  and "delete"=0'''
     res = connect(sql)
     data_list = []
     for i in res:
@@ -51,6 +52,7 @@ def get_all_letter(page):
             "collect_flag": 0
         }
         data_list.append(t)
+    data_list = data_list[start:end]
     sql2 = '''select count(*) from myapp_letter where "right"=0 and flag=1  and "delete"=0'''
     res2 = connect(sql2)
     for i in res2:

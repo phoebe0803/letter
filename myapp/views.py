@@ -98,7 +98,7 @@ def all_message(req):
         else:
             data_list=get_all_letter(page)
             data = json.dumps(data_list)
-    return HttpResponse({"status": 200, "msg": "OK", "data":data})
+    return HttpResponse(data)
 
 #localhost/all_message/collect_letter
 def collect_letter(req):

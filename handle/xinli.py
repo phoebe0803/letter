@@ -5,7 +5,7 @@ def get_message(top,page):
     page = int(page)
     start = (page - 1) * 4
     end = page * 4
-    sql = '''select * from myapp_xinli where  topic={} and id>{} and id <={}'''.format( top, start, end)
+    sql = '''select * from myapp_xinli where  topic={} '''.format( top)
     res = connect(sql)
     data_list = []
     for i in res:
@@ -18,9 +18,10 @@ def get_message(top,page):
             "url":i[7]
         }
         data_list.append(t)
-    sql2 = '''select count(*) from myapp_letter where topic={} '''.format(
-        top)
+    data_list=data_list[start:end]
+    sql2 = '''select count(*) from myapp_xinli where topic={} '''.format(top)
     res2 = connect(sql2)
+
     for i in res2:
         num = i[0]
     t = {"all_count": num}
@@ -31,7 +32,7 @@ def get_xinli_all_message(page):
     page = int(page)
     start = (page - 1) * 4
     end = page * 4
-    sql = '''select * from myapp_xinli where   id>{} and id <={} and "delete"=0'''.format(start, end)
+    sql = '''select * from myapp_xinli where  "delete"=0'''
     res = connect(sql)
     data_list = []
     for i in res:
@@ -44,6 +45,7 @@ def get_xinli_all_message(page):
             "url": i[7]
         }
         data_list.append(t)
+    data_list = data_list[start:end]
     sql2 = '''select count(*) from myapp_letter where  "delete"=0'''
     res2 = connect(sql2)
     for i in res2:
