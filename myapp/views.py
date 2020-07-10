@@ -125,7 +125,8 @@ def send_xinli_message(req):
             data_list=get_message(top,page)
         else:
             data_list=get_xinli_all_message(page)
-    return JsonResponse({"status": 200, "msg": "OK", "data": data_list})
+    data = json.dumps(data_list)
+    return HttpResponse(data)
 
 
 def getSession(request):

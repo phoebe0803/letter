@@ -67,3 +67,4 @@ def insert_collect_letter(username,letter_id):
 def delete_collect_letter_from_table(username,letter_id):
     letter_id = int(letter_id)
     sql='''DELETE FROM myapp_collect WHERE username = {} and letter_id={} '''.format(username,letter_id)
+    connect(sql)
