@@ -23,10 +23,10 @@ from django.conf.urls import re_path
 from myapp import views
 urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
-    re_path(r'^register/', views.api),
+    re_path(r'^register/', views.register),
     re_path(r'^login$', views.login),
     re_path(r'^write_letter/save/',views.write_letter),
-    re_path(r'^all_message/',views.all_message),
+    re_path(r'^all_message$',views.all_message),
     re_path(r'^getSession$',views.getSession),
     re_path(r'^logout$',views.logout),
 

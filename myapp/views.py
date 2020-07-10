@@ -3,7 +3,7 @@
 from django.shortcuts import render
 from myapp.mysql import connect
 from myapp.models import User
-from handle.write_letter import save
+from handle.letter import save,get_letter,get_all_letter
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
 import json
@@ -13,9 +13,9 @@ import json
 def index(request):
     return render(request,'base.html')
 
-#http://127.0.0.1:8082/api
+#http://127.0.0.1:8082/register
 # 0 失败 1 成功 register
-def api(req):
+def register(req):
     if req.method == "POST":
         dic = req.GET.dict()
         print(dic)
@@ -26,7 +26,6 @@ def api(req):
     res=connect(sql)
     re=1
     for u in res:
-        print('用户存在')
         re=0
         return HttpResponse('%d'%(re))
     User.objects.create(
@@ -69,10 +68,23 @@ def write_letter(req):
     data=[username,context,letter_topic,right,flag]
     save(data)
     return JsonResponse({"status": 200, "msg": "OK", "data":0 })
-#http://127.0.0.1:8001/all_message/?page=9
+#http://127.0.0.1:8001/all_message?page=9&letter_topic="爱情"
+#信件广场上得到一页6个并且返回所有
 def all_message(req):
-    page_num=req.GET.get('page')
-    print(page_num)
+    print(req)
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_topic = dic['letter_topic']
+        page=dic['page']
+        ##有分类的主题
+        if letter_topic:
+            data_list=get_letter(letter_topic,page)
+
+        else:
+            data_list=get_all_letter(page)
+
+
+
     # if req.method == "POST":
     #     letter_topic = req.POST.get("letter_topic", None)
 
@@ -80,7 +92,7 @@ def all_message(req):
     # res=connect(sql)
     # for i in res:
     #     print(i)
-    return JsonResponse({"status": 200, "msg": "OK", "data":0})
+    return JsonResponse({"status": 200, "msg": "OK", "data":data_list})
 
 def getSession(request):
     print(request.session)
