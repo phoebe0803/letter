@@ -75,7 +75,7 @@ def write_letter(req):
     data=[username,context,letter_topic,right,flag]
     save(data)
 
-    return HttpResponse({"status": 200, "msg": "OK", "data":0 })
+
 
 
 #http://127.0.0.1:8001/all_message?page=9&letter_topic="爱情"

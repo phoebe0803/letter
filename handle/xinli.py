@@ -4,7 +4,7 @@ def get_message(top,page):
     # 比如page=2 那么start就是7开始到12
     page = int(page)
     start = (page - 1) * 4
-    end = page * 4
+    end = page * 4+1
     sql = '''select * from myapp_xinli where  topic={} '''.format( top)
     res = connect(sql)
     data_list = []
@@ -31,7 +31,7 @@ def get_message(top,page):
 def get_xinli_all_message(page):
     page = int(page)
     start = (page - 1) * 4
-    end = page * 4
+    end = page * 4+1
     sql = '''select * from myapp_xinli where  "delete"=0'''
     res = connect(sql)
     data_list = []
