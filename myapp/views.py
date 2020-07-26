@@ -76,6 +76,8 @@ def write_letter(req):
     save(data)
 #http://127.0.0.1:8001/all_message/?page=9
 
+
+#
 def all_message(req):
     print(req)
     if req.method == "GET" or req.method == "POST":
@@ -86,7 +88,6 @@ def all_message(req):
         if letter_topic:
             data_list=get_letter(letter_topic,page)
             data=json.dumps(data_list)
-
         else:
             data_list=get_all_letter(page)
             data = json.dumps(data_list)
@@ -99,6 +100,11 @@ def collect_letter(req):
         letter_id = dic['letterID']
         username=dic['username']
         insert_collect_letter(username,letter_id)
+        dict = {'data': 'collect success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)
+
+
 
 def delete_collect_letter(req):
     if req.method == "GET" or req.method == "POST":
