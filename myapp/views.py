@@ -114,6 +114,9 @@ def delete_collect_letter(req):
         letter_id = dic['letterID']
         username = dic['username']
         delete_collect_letter_from_table(username, letter_id)
+        dict = {'data': 'delete collect success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)
 
 
 def collect_xinli(req):
