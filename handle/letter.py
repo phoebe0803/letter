@@ -12,12 +12,15 @@ def save(data):
     )
 
 
-def get_letter(letter_topic,page):
+def get_letter(letter_topic,page,username):
     page=int(page)
     start=(page-1)*6
     end=page*6
-    sql = '''select * from myapp_letter where "right"=0 and flag=1 and letter_topic={} and "delete"=0'''.format(letter_topic)
+    sql = '''select * from myapp_letter where "right"=0 and flag=1 and letter_topic="{}" and "delete"=0'''.format(letter_topic)
+
     res = connect(sql)
+    ## todo sql2
+  #  sql2='''select * from myapp_collect where username={}'''
     data_list=[]
     for i in res:
         t={
@@ -37,7 +40,7 @@ def get_letter(letter_topic,page):
     data_list.append(t)
     return data_list
 
-def get_all_letter(page):
+def get_all_letter(page,username):
     page = int(page)
     start = (page - 1) * 6
     end = page * 6
@@ -45,6 +48,9 @@ def get_all_letter(page):
     res = connect(sql)
     data_list = []
     for i in res:
+        # 根据letter_id 和username 去myapp_collect 去查找是否有这个记录
+        #todo
+
         t = {
             "letter_topic": i[4],
             "letterID": i[0],
