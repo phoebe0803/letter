@@ -6,7 +6,7 @@ def get_message(top,page):
     page = int(page)
     start = (page - 1) * 4
     end = page * 4
-    sql = '''select * from myapp_xinli where  topic={} '''.format( top)
+    sql = '''select * from myapp_xinli where  topic="{}" '''.format( top)
     res = connect(sql)
     data_list = []
     for i in res:
@@ -20,7 +20,7 @@ def get_message(top,page):
         }
         data_list.append(t)
     data_list=data_list[start:end]
-    sql2 = '''select count(*) from myapp_xinli where topic={} '''.format(top)
+    sql2 = '''select count(*) from myapp_xinli where topic="{}" '''.format(top)
     res2 = connect(sql2)
 
     for i in res2:
@@ -58,11 +58,11 @@ def get_xinli_all_message(page):
 
 def do_collect_xinli(username,xinli_id):
     letter_id=int(xinli_id)
-    sql='''insert into myapp_xinli (username,xinli_id) values({},{}) '''.format(username,xinli_id)
+    sql='''insert into myapp_xinli (username,xinli_id) values("{}",{}) '''.format(username,xinli_id)
     connect(sql)
 
 def delete_collect_xinli_from_table(username,xinli_id):
     letter_id = int(xinli_id)
-    sql='''DELETE FROM myapp_collect WHERE username = {} and xili_id={} '''.format(username,xinli_id)
+    sql='''DELETE FROM myapp_collect WHERE username = "{}" and xili_id={} '''.format(username,xinli_id)
     connect(sql)
 

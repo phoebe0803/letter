@@ -32,7 +32,7 @@ def get_letter(letter_topic,page,username):
            }
         data_list.append(t)
     data_list = data_list[start:end]
-    sql2='''select count(*) from myapp_letter where "right"=0 and flag=1 and letter_topic={} and "delete"=0'''.format(letter_topic)
+    sql2='''select count(*) from myapp_letter where "right"=0 and flag=1 and letter_topic="{}" and "delete"=0'''.format(letter_topic)
     res2 = connect(sql2)
     for i in res2:
         num=i[0]
@@ -70,11 +70,11 @@ def get_all_letter(page,username):
 
 def insert_collect_letter(username,letter_id):
     letter_id=int(letter_id)
-    sql='''insert into myapp_collect (username,letter_id) values({},{}) '''.format(username,letter_id)
+    sql='''insert into myapp_collect (username,letter_id) values("{}",{}) '''.format(username,letter_id)
     print(sql)
     connect(sql)
 
 def delete_collect_letter_from_table(username,letter_id):
     letter_id = int(letter_id)
-    sql='''DELETE FROM myapp_collect WHERE username = {} and letter_id={} '''.format(username,letter_id)
+    sql='''DELETE FROM myapp_collect WHERE username = "{}" and letter_id={} '''.format(username,letter_id)
     connect(sql)
