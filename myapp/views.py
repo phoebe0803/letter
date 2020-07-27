@@ -3,7 +3,7 @@
 from django.shortcuts import render
 from myapp.mysql import connect
 from myapp.models import User
-from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,delete_collect_letter_from_table
+from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,delete_collect_letter_from_table,show_all_my_letter
 from handle.xinli import  get_message,get_xinli_all_message,do_collect_xinli,delete_collect_xinli_from_table
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
@@ -115,6 +115,16 @@ def delete_collect_letter(req):
         dict = {'data': 'delete collect success'}
         data = json.dumps(dict)
     return HttpResponse(data)
+
+#个人中心下的展示
+def show_my_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        username = dic['username']
+        data_list=show_all_my_letter(username)
+        data = json.dumps(data_list)
+    return HttpResponse(data)
+
 
 # 收藏心理
 def collect_xinli(req):

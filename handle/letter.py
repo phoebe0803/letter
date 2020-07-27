@@ -90,3 +90,16 @@ def delete_collect_letter_from_table(username,letter_id):
     sql=''' delete from myapp_collect_letter 
 WHERE username="{}" and letter_id={}'''.format(username,letter_id)
     connect(sql)
+
+def show_all_my_letter(username):
+    sql='''select * from myapp_letter where username="{}"'''.format(username)
+    res=connect(sql)
+    data_list=[]
+    for i in res:
+        t = {
+            "letter_topic": i[4],
+            "letterID": i[0],
+            "context": i[2],
+        }
+        data_list.append(t)
+    return data_list
