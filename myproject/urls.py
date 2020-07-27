@@ -36,5 +36,6 @@ urlpatterns = [
     re_path(r'^getSession$',views.getSession),
     re_path(r'^logout$',views.logout),
     re_path(r'^userlist$', views.userlist),
+
 ]
 # test
