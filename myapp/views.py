@@ -83,8 +83,7 @@ def all_message(req):
     if req.method == "GET" or req.method == "POST":
         dic = req.GET.dict()
         letter_topic = dic['letter_topic']
-        username=dict['username']
-
+        username=dic['username']
         page=dic['page']
         ## 去查找
         ##有分类的主题
