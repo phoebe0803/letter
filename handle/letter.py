@@ -20,7 +20,6 @@ def get_letter(letter_topic,page,username):
 
     res = connect(sql)
     ## todo sql2
-  #  sql2='''select * from myapp_collect where username={}'''
     data_list=[]
     for i in res:
         t={
@@ -30,6 +29,11 @@ def get_letter(letter_topic,page,username):
            "context":i[2],
            "collect_flag":0
            }
+        letter_id=i[0]
+        sqlcollect = '''select * from myapp_collect_letter where username="{}" and letter_id={}'''.format(username, letter_id)
+        rescollect = connect(sqlcollect)
+        for j in rescollect:
+            t["collect_flag"]=1
         data_list.append(t)
     data_list = data_list[start:end]
     sql2='''select count(*) from myapp_letter where "right"=0 and flag=1 and letter_topic="{}" and "delete"=0'''.format(letter_topic)
@@ -58,6 +62,13 @@ def get_all_letter(page,username):
             "context": i[2],
             "collect_flag": 0
         }
+        letter_id = i[0]
+        sqlcollect = '''select * from myapp_collect_letter where username="{}" and letter_id={}'''.format(username,
+                                                                                                          letter_id)
+        rescollect = connect(sqlcollect)
+        for j in rescollect:
+            t["collect_flag"] = 1
+
         data_list.append(t)
     data_list = data_list[start:end]
     sql2 = '''select count(*) from myapp_letter where "right"=0 and flag=1  and "delete"=0'''

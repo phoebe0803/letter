@@ -26,5 +26,7 @@ class Xinli(models.Model):
 class collect_letter(models.Model):
     username = models.CharField(max_length=64,default='')
     letter_id=models.IntegerField(default=0)
-
+class collect_letter(models.Model):
+    username = models.CharField(max_length=56,default='')
+    xinli_id=models.IntegerField(default=0)
 

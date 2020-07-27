@@ -106,8 +106,6 @@ def collect_letter(req):
         data = json.dumps(dict)
     return HttpResponse(data)
 
-
-
 def delete_collect_letter(req):
     if req.method == "GET" or req.method == "POST":
         dic = req.GET.dict()
@@ -118,7 +116,7 @@ def delete_collect_letter(req):
         data = json.dumps(dict)
     return HttpResponse(data)
 
-
+# 收藏心理
 def collect_xinli(req):
     if req.method == "GET" or req.method == "POST":
         dic = req.GET.dict()

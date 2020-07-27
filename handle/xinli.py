@@ -58,11 +58,11 @@ def get_xinli_all_message(page):
 
 def do_collect_xinli(username,xinli_id):
     letter_id=int(xinli_id)
-    sql='''insert into myapp_xinli (username,xinli_id) values("{}",{}) '''.format(username,xinli_id)
+    sql='''insert into myapp_collect_xinli (username,xinli_id) values("{}",{}) '''.format(username,xinli_id)
     connect(sql)
 
 def delete_collect_xinli_from_table(username,xinli_id):
     letter_id = int(xinli_id)
-    sql='''DELETE FROM myapp_collect WHERE username = "{}" and xili_id={} '''.format(username,xinli_id)
+    sql='''DELETE FROM myapp_collect_xinli WHERE username = "{}" and xili_id={} '''.format(username,xinli_id)
     connect(sql)
 
