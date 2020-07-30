@@ -62,12 +62,11 @@ def login(req):
 def write_letter(req):
     if req.method == "POST" or req.method == "GET":
         dic = req.GET.dict()
-        print(dic)
         username = dic['username']
         context=dic['context']
         letter_topic=dic['letter_topic']
-        right = dic['right']
-        flag = dic['flag']
+        right = int(dic['right'])
+        flag = int(dic['flag'])
     # username="lidan"
     # context="这是一个内容文档"
     # letter_topic="0"
@@ -75,6 +74,12 @@ def write_letter(req):
     # flag="0"
     data=[username,context,letter_topic,right,flag]
     save(data)
+    dict = {'data': 'save success'}
+    data = json.dumps(dict)
+    return HttpResponse(data)
+
+
+
 #http://127.0.0.1:8001/all_message/?page=9
 
 

@@ -25,7 +25,7 @@ urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^register/', views.register),
     re_path(r'^login$', views.login),
-    re_path(r'^write_letter/save/',views.write_letter),
+    re_path(r'^write_letter/save$',views.write_letter),
     re_path(r'^all_message$',views.all_message),
     re_path(r'^collect_letter$', views.collect_letter),
     re_path(r'^delete_collect_letter$',views.delete_collect_letter),
@@ -34,6 +34,7 @@ urlpatterns = [
     re_path(r'^show_collect$', views.show_collect),
     re_path(r'^send_xinli_message$',views.send_xinli_message),
     re_path(r'^show_letter$',views.show_my_letter),
+
     re_path(r'^get_letter_byID$',views.get_letter_byID),
     re_path(r'^getSession$',views.getSession),
     re_path(r'^logout$',views.logout),
