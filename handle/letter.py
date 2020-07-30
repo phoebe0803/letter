@@ -52,8 +52,7 @@ def get_all_letter(page,username):
     res = connect(sql)
     data_list = []
     for i in res:
-        # 根据letter_id 和username 去myapp_collect 去查找是否有这个记录
-        #todo
+
 
         t = {
             "letter_topic": i[4],
@@ -91,15 +90,39 @@ def delete_collect_letter_from_table(username,letter_id):
 WHERE username="{}" and letter_id={}'''.format(username,letter_id)
     connect(sql)
 
-def show_all_my_letter(username):
-    sql='''select * from myapp_letter where username="{}"'''.format(username)
+#保存到草稿公开隐私草稿
+'''
+right(公开 0， 仅自己可见 1)
+flag:"0,1"(保存草稿 0 ， 投递 1)
+'''
+def show_all_my_letter(username,page,which_right):
+    page = int(page)
+    start = (page - 1) * 4
+    end = page * 4
+    sql=""
+    which_right=int(which_right)
+    # 公开
+    if which_right==0:
+        sql = '''select * from myapp_letter where username="{}" and right=0 '''.format(username)
+    #隐私
+    if which_right==1:
+        sql = '''select * from myapp_letter where username="{}" and right=1 '''.format(username)
+    #草稿
+    if which_right==2:
+        sql='''select * from myapp_letter where username="{}" and flag=0 '''.format(username)
     res=connect(sql)
     data_list=[]
+    num=0
     for i in res:
         t = {
             "letter_topic": i[4],
             "letterID": i[0],
             "context": i[2],
         }
+        num=num+1
         data_list.append(t)
+    data_list = data_list[start:end]
+    t = {"all_count": num}
+    data_list.append(t)
     return data_list
+

@@ -4,6 +4,7 @@ from django.shortcuts import render
 from myapp.mysql import connect
 from myapp.models import User
 from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,delete_collect_letter_from_table,show_all_my_letter
+
 from handle.xinli import  get_message,get_xinli_all_message,do_collect_xinli,delete_collect_xinli_from_table
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
@@ -121,7 +122,9 @@ def show_my_letter(req):
     if req.method == "GET" or req.method == "POST":
         dic = req.GET.dict()
         username = dic['username']
-        data_list=show_all_my_letter(username)
+        page = dic['page']
+        which_right=dic['which_right']
+        data_list=show_all_my_letter(username,page,which_right)
         data = json.dumps(data_list)
     return HttpResponse(data)
 
@@ -183,3 +186,24 @@ def userlist(req):
     rs = User.objects.filter().all()
     jsonArr = serializers.serialize("json", rs)
     return HttpResponse(jsonArr)
+
+
+
+def get_letter_byID(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['letterID']
+        sql='''select * from myapp_letter where id={}'''.format(letter_id)
+        res=connect(sql)
+        data_list=[]
+        for i in res:
+            t = {
+                "letter_topic": i[4],
+                "letterID": i[0],
+                "context": i[2],
+            }
+            data_list.append(t)
+    data = json.dumps(data_list)
+    return HttpResponse(data)
+
+
