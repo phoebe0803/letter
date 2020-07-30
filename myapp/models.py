@@ -26,7 +26,15 @@ class Xinli(models.Model):
 class collect_letter(models.Model):
     username = models.CharField(max_length=64,default='')
     letter_id=models.IntegerField(default=0)
-class collect_letter(models.Model):
+
+class collect_xinli(models.Model):
     username = models.CharField(max_length=56,default='')
     xinli_id=models.IntegerField(default=0)
+
+class reply_letter(models.Model):
+    username = models.CharField(max_length=56,default='')
+    letter_id=models.IntegerField(default=0)
+    context = models.CharField(max_length=512)
+    read_flag=models.IntegerField(default=0)
+    collect_flag=models.IntegerField(default=0)
 

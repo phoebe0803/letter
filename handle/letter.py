@@ -52,8 +52,6 @@ def get_all_letter(page,username):
     res = connect(sql)
     data_list = []
     for i in res:
-
-
         t = {
             "letter_topic": i[4],
             "letterID": i[0],

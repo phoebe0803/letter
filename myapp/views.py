@@ -4,7 +4,7 @@ from django.shortcuts import render
 from myapp.mysql import connect
 from myapp.models import User
 from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,delete_collect_letter_from_table,show_all_my_letter
-
+from handle.reply_letter import save_reply_letter,show_reply_letter
 from handle.xinli import  get_message,get_xinli_all_message,do_collect_xinli,delete_collect_xinli_from_table
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
@@ -211,4 +211,24 @@ def get_letter_byID(req):
     data = json.dumps(data_list)
     return HttpResponse(data)
 
+def reply_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['letterID']
+        username=dic['username']
+        context=dic['context']
+        save_reply_letter(letter_id,username,context)
+        dict = {'data': 'reply success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)
+
+def get_reply_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['letterID']
+        username = dic['username']
+        page=dic['page']
+        dict=show_reply_letter(letter_id,username,page)
+    data = json.dumps(dict)
+    return HttpResponse(data)
 
