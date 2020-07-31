@@ -65,6 +65,6 @@ def do_collect_xinli(username,xinli_id):
 
 def delete_collect_xinli_from_table(username,xinli_id):
     letter_id = int(xinli_id)
-    sql='''DELETE FROM myapp_collect_xinli WHERE username = "{}" and xili_id={} '''.format(username,xinli_id)
+    sql='''DELETE FROM myapp_collect_xinli WHERE username = "{}" and xinli_id={} '''.format(username,xinli_id)
     connect(sql)
 

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from myapp.mysql import connect
 from myapp.models import User
 from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,delete_collect_letter_from_table,show_all_my_letter
-from handle.reply_letter import save_reply_letter,show_reply_letter
+from handle.reply_letter import save_reply_letter,show_reply_letter,show_receive_reply_letter
 from handle.xinli import  get_message,get_xinli_all_message,do_collect_xinli,delete_collect_xinli_from_table
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
@@ -141,6 +141,9 @@ def collect_xinli(req):
         xinli_id = dic['xinliID']
         username=dic['username']
         do_collect_xinli(username,xinli_id)
+        dict = {'data': ' collect success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)
 
 def delete_collect_xinli(req):
     if req.method == "GET" or req.method == "POST":
@@ -148,6 +151,9 @@ def delete_collect_xinli(req):
         xinli_id = dic['xinliID']
         username = dic['username']
         delete_collect_xinli_from_table(username, xinli_id)
+        dict = {'data': 'delete collect success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)
 
 #send_xinli_message?page=1&top=“焦虑症”
 def send_xinli_message(req):
@@ -232,3 +238,11 @@ def get_reply_letter(req):
     data = json.dumps(dict)
     return HttpResponse(data)
 
+def receive_reply_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        username = dic['username']
+        page=dic['page']
+        dict=show_receive_reply_letter(username,page)
+    data = json.dumps(dict)
+    return HttpResponse(data)

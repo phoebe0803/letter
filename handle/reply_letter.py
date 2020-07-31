@@ -32,4 +32,24 @@ def show_reply_letter(letter_id,username,page):
     data_list.append(t)
     return data_list
 
+def show_receive_reply_letter(username,page):
+    page = int(page)
+    start = (page - 1) * 6
+    end = page * 6
+    sql='''select * from myapp_letter as a left join  reply_letter as b on a.id=b.letter_id where a.username={} order by b.read_flag desc'''.format(username)
+    res=connect(sql)
+    data_list=[]
+    for i in res:
+        num = num + 1
+        t = {
+            "reply_context": i[2],
+            "collect_flag": i[3]
+        }
+        data_list.append(t)
+    data_list = data_list[start:end]
+    t = {"all_count": num}
+    data_list.append(t)
+    return data_list
+
+
 
