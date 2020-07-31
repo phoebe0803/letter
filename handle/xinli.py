@@ -1,7 +1,7 @@
 #coding=utf-8
 from myapp.mysql import connect
 
-def get_message(top,page):
+def get_message(top,page,username):
     # 比如page=2 那么start就是7开始到12
     page = int(page)
     start = (page - 1) * 4
@@ -16,10 +16,18 @@ def get_message(top,page):
             "editor": i[3],
             "date": i[4],
             "xinli_id": i[0],
-            "url":i[7]
+            "url":i[7],
+            "collect_flag":0
         }
         data_list.append(t)
     data_list=data_list[start:end]
+    xinli_id=i[0]
+    sqlcollect = '''select * from myapp_collect_xinli where username="{}" and letter_id={}'''.format(username,
+                                                                                                      xinli_id)
+    rescollect = connect(sqlcollect)
+    for j in rescollect:
+        t["collect_flag"] = 1
+
     sql2 = '''select count(*) from myapp_xinli where topic="{}" '''.format(top)
     res2 = connect(sql2)
 
@@ -29,7 +37,7 @@ def get_message(top,page):
     data_list.append(t)
     return data_list
 
-def get_xinli_all_message(page):
+def get_xinli_all_message(username,page):
     page = int(page)
     start = (page - 1) * 4
     end = page * 4
@@ -44,8 +52,14 @@ def get_xinli_all_message(page):
             "editor": i[3],
             "date": i[4],
             "xinli_id": i[0],
-            "url": i[7]
+            "url": i[7],
+            "collect_xinli":0
         }
+        xinli_id = i[0]
+        sqlcollect = '''select * from myapp_collect_xinli where xinli_id={} and username="{}"'''.format(xinli_id,username)
+        rescollect = connect(sqlcollect)
+        for j in rescollect:
+            t["collect_flag"] = 1
         num=num+1
         data_list.append(t)
     data_list = data_list[start:end]
