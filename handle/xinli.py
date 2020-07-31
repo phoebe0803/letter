@@ -35,6 +35,7 @@ def get_xinli_all_message(page):
     end = page * 4
     sql = '''select * from myapp_xinli where  "delete"=0'''
     res = connect(sql)
+    num=0
     data_list = []
     for i in res:
         t = {
@@ -45,12 +46,13 @@ def get_xinli_all_message(page):
             "xinli_id": i[0],
             "url": i[7]
         }
+        num=num+1
         data_list.append(t)
     data_list = data_list[start:end]
-    sql2 = '''select count(*) from myapp_letter where  "delete"=0'''
-    res2 = connect(sql2)
-    for i in res2:
-        num = i[0]
+    # sql2 = '''select count(*) from myapp_letter where  "delete"=0'''
+    # res2 = connect(sql2)
+    # for i in res2:
+    #     num = i[0]
     t = {"all_count": num}
     data_list.append(t)
     return data_list
