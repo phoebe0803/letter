@@ -161,10 +161,13 @@ def send_xinli_message(req):
         dic = req.GET.dict()
         page = dic['page']
         top = dic['top']
+        username=dic['username']
+
+
         if top:
-            data_list=get_message(top,page)
+            data_list=get_message(top,page,username)
         else:
-            data_list=get_xinli_all_message(page)
+            data_list=get_xinli_all_message(page,username)
     data = json.dumps(data_list)
     return HttpResponse(data)
 

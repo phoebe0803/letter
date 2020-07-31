@@ -37,11 +37,11 @@ def get_message(top,page,username):
     data_list.append(t)
     return data_list
 
-def get_xinli_all_message(username,page):
+def get_xinli_all_message(page,username):
     page = int(page)
     start = (page - 1) * 4
     end = page * 4
-    sql = '''select * from myapp_xinli where  "delete"=0'''
+    sql = '''select * from myapp_xinli '''
     res = connect(sql)
     num=0
     data_list = []
