@@ -36,13 +36,12 @@ def show_receive_reply_letter(username,page):
     page = int(page)
     start = (page - 1) * 6
     end = page * 6
-    sql='''select * from myapp_letter as a left join  reply_letter as b on (b.letter_id=a.id ) where a.username="{}" '''.format(username)
+    sql='''select * from myapp_letter as a left join  reply_letter as b on (b.letter_id=a.id ) where a.username="{}"  and b.id is not null '''.format(username)
     res=connect(sql)
     data_list=[]
     num=0
 
     for i in res:
-        if i[8] :
             num = num + 1
             t = {
                 "reply_context": i[9],
