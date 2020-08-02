@@ -36,7 +36,9 @@ urlpatterns = [
     re_path(r'^show_letter$',views.show_my_letter),
     re_path(r'^reply_letter$',views.reply_letter),
     re_path(r'^get_reply_letter$', views.get_reply_letter),
-    re_path(r'^receive_reply_letter',views.receive_reply_letter),
+    re_path(r'^receive_reply_letter$',views.receive_reply_letter),
+    re_path(r'^show_my_collect$',views.show_my_collect),
+    re_path(r'^unread_to_read$',views.unread_to_read)
 
     re_path(r'^get_letter_byID$',views.get_letter_byID),
     re_path(r'^getSession$',views.getSession),
