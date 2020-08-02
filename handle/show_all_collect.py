@@ -48,7 +48,7 @@ def show_xinli_collect(username,page):
     num = 0
     for i in res:
         num = num + 1
-        sql2 = '''select * from myapp_xinli where id={}'''.format(i[2])
+        sql2 = '''select * from myapp_xinli where id={}'''.format(i[1])
         res2 = connect(sql2)
         for j in res2:
             t = {
