@@ -45,7 +45,8 @@ def show_receive_reply_letter(username,page):
             num = num + 1
             t = {
                 "reply_context": i[9],
-                "read_flag": i[11]
+                "read_flag": i[11],
+                "collect_flag":i[12]
             }
             data_list.append(t)
     data_list = data_list[start:end]

@@ -260,7 +260,7 @@ def show_my_collect(req):
     data = json.dumps(dict)
     return HttpResponse(data)
 
-def remark_unread(req):
+def unread_to_read(req):
     if req.method == "GET" or req.method == "POST":
         dic = req.GET.dict()
         reply_id = dic['reply_id']
