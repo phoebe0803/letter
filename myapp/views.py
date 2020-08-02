@@ -6,7 +6,7 @@ from myapp.models import User
 from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,delete_collect_letter_from_table,show_all_my_letter
 from handle.reply_letter import save_reply_letter,show_reply_letter,show_receive_reply_letter
 from handle.xinli import  get_message,get_xinli_all_message,do_collect_xinli,delete_collect_xinli_from_table
-from handle.show_all_collect import  show_my_letter_reply_collect
+from handle.show_all_collect import  show_my_letter_reply_collect,show_xinli_collect
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
 import json
@@ -257,6 +257,15 @@ def show_my_collect(req):
         username = dic['username']
         page=dic['page']
         dict = show_my_letter_reply_collect(username, page)
+    data = json.dumps(dict)
+    return HttpResponse(data)
+
+def show_my_xinli_collect(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        username = dic['username']
+        page=dic['page']
+        dict = show_xinli_collect(username, page)
     data = json.dumps(dict)
     return HttpResponse(data)
 
