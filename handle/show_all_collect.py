@@ -56,7 +56,7 @@ def show_xinli_collect(username,page):
                 "context":j[2],
                 "editor":j[3],
                 "date":j[4],
-                "url":j[5],
+                "url":j[7],
                 "collect_flag": 1,
                 "xinli_id": j[0]
 
