@@ -27,7 +27,10 @@ def show_my_letter_reply_collect(username,page):
         res2=connect(sql2)
         for j in res2:
             t={
-                "context":j[2]
+                "context":j[2],
+                "collect_flag":1,
+                "letter_id":i[0]
+
             }
             data_list.append(t)
     t = {"all_count": num}
