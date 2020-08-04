@@ -22,7 +22,7 @@ def get_message(top,page,username):
         data_list.append(t)
     data_list=data_list[start:end]
     xinli_id=i[0]
-    sqlcollect = '''select * from myapp_collect_xinli where username="{}" and letter_id={}'''.format(username,
+    sqlcollect = '''select * from myapp_collect_xinli where username="{}" and xinli_id={}'''.format(username,
                                                                                                       xinli_id)
     rescollect = connect(sqlcollect)
     for j in rescollect:
