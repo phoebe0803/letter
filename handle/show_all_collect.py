@@ -17,13 +17,13 @@ def show_my_letter_reply_collect(username,page):
     start = (page - 1) * 6
     end = page * 6
     ##找到这个用户收藏的letter_id
-    sql1='''select * from myapp_collect_letter where username="{}"'''.format(username)
+    sql1='''select * from myapp_collect_letter where username="{}" '''.format(username)
     res=connect(sql1)
     data_list=[]
     num=0
     for i in res:
         num=num+1
-        sql2='''select * from myapp_letter where id={}'''.format(i[2])
+        sql2='''select * from myapp_letter where id={} and  probability<0.5'''.format(i[2])
         res2=connect(sql2)
         for j in res2:
             t={
@@ -48,7 +48,7 @@ def show_xinli_collect(username,page):
     num = 0
     for i in res:
         num = num + 1
-        sql2 = '''select * from myapp_xinli where id={}'''.format(i[1])
+        sql2 = '''select * from myapp_xinli where id={} '''.format(i[1])
         res2 = connect(sql2)
         for j in res2:
             t = {
