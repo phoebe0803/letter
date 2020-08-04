@@ -44,10 +44,10 @@ def show_receive_reply_letter(username,page):
     for i in res:
             num = num + 1
             t = {
-                "reply_id":i[8],
-                "reply_context": i[10],
-                "read_flag": i[12],
-                "collect_flag":i[13]
+                "reply_id":i[9],
+                "reply_context": i[11],
+                "read_flag": i[13],
+                "collect_flag":i[14]
             }
             data_list.append(t)
     data_list = data_list[start:end]
