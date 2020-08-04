@@ -74,9 +74,18 @@ def write_letter(req):
     # letter_topic="0"
     # right="0"
     # flag="0"
-    data=[username,context,letter_topic,right,flag]
+    res = phrase_analyse(context)
+    # 不合格
+    if res == 1:
+        dict = {'data': 'reply success but exist Unqualified words', 'probability': res}
+    # suspect
+    if res >= 0.5 and res < 1:
+        dict = {'data': 'reply success but maybe exist Unqualified words', 'probability': res}
+    if res < 0.5:
+        dict = {'data': 'reply success'}
+    data=[username,context,letter_topic,right,flag,res]
+    #保存到数据库表
     save(data)
-    dict = {'data': 'save success'}
     data = json.dumps(dict)
     return HttpResponse(data)
 
@@ -238,8 +247,6 @@ def reply_letter(req):
         if res<0.5:
             dict = {'data': 'reply success'}
         save_reply_letter(letter_id, username, context, res)
-
-
         data = json.dumps(dict)
     return HttpResponse(data)
 

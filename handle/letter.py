@@ -2,13 +2,15 @@
 from myapp.mysql import connect
 from myapp.models import Letter
 
+#写信
 def save(data):
     Letter.objects.create(
         username=data[0],
         context=data[1],
         letter_topic=data[2],
         right=data[3],
-        flag=data[4]
+        flag=data[4],
+        probability=data[5]
     )
 
 

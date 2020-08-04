@@ -14,6 +14,8 @@ class Letter(models.Model):
     flag=models.IntegerField()
     #delete:"0,1"(1删除了)
     delete=models.IntegerField(default=0)
+    probability = models.CharField(max_length=56, default='')
+
 class Xinli(models.Model):
     topic=models.CharField(max_length=64,default='')
     title= models.CharField(max_length=64)
@@ -23,6 +25,7 @@ class Xinli(models.Model):
     date = models.CharField(max_length=64)
     #delete:"0,1"(1删除了)
     delete=models.IntegerField(default=0)
+
 class collect_letter(models.Model):
     username = models.CharField(max_length=64,default='')
     letter_id=models.IntegerField(default=0)
