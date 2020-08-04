@@ -1,8 +1,8 @@
 #coding=utf-8
 from myapp.mysql import connect
 
-def save_reply_letter(letter_id,username,context):
-    sql = '''insert into reply_letter (username,letter_id,reply_context) values("{}",{},"{}") '''.format(username, letter_id,context)
+def save_reply_letter(letter_id,username,context,probability):
+    sql = '''insert into reply_letter (username,letter_id,reply_context,probability) values("{}",{},"{}","{}") '''.format(username, letter_id,context,probability)
     print(sql)
     connect(sql)
 
@@ -10,7 +10,7 @@ def show_reply_letter(letter_id,username,page):
     page = int(page)
     start = (page - 1) * 6
     end = page * 6
-    sql='''select * from reply_letter where letter_id={}'''.format(letter_id)
+    sql='''select * from reply_letter where letter_id={} and check<0.5'''.format(letter_id)
     res=connect(sql)
     data_list=[]
     num=0
@@ -36,7 +36,7 @@ def show_receive_reply_letter(username,page):
     page = int(page)
     start = (page - 1) * 6
     end = page * 6
-    sql='''select * from myapp_letter as a left join  reply_letter as b on (b.letter_id=a.id ) where a.username="{}"  and b.id is not null '''.format(username)
+    sql='''select * from myapp_letter as a left join  reply_letter as b on (b.letter_id=a.id ) where a.username="{}"  and b.check<0.5 and b.id is not null '''.format(username)
     res=connect(sql)
     data_list=[]
     num=0

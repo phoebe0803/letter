@@ -37,4 +37,5 @@ class reply_letter(models.Model):
     context = models.CharField(max_length=512)
     read_flag=models.IntegerField(default=0)
     collect_flag=models.IntegerField(default=0)
+    probability=models.CharField(max_length=56,default='')
 

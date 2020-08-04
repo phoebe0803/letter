@@ -7,6 +7,7 @@ from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,d
 from handle.reply_letter import save_reply_letter,show_reply_letter,show_receive_reply_letter
 from handle.xinli import  get_message,get_xinli_all_message,do_collect_xinli,delete_collect_xinli_from_table
 from handle.show_all_collect import  show_my_letter_reply_collect,show_xinli_collect
+from handle.nlp import phrase_analyse
 from django.http import JsonResponse
 from django.http import HttpResponse,HttpResponseRedirect
 import json
@@ -227,8 +228,18 @@ def reply_letter(req):
         letter_id = dic['letterID']
         username=dic['username']
         context=dic['context']
-        save_reply_letter(letter_id,username,context)
-        dict = {'data': 'reply success'}
+        res=phrase_analyse(context)
+        #不合格
+        if res==1:
+            dict = {'data': 'reply success but exist Unqualified words','probability':res}
+        #suspect
+        if res>=0.5 and res<1:
+            dict = {'data': 'reply success but maybe exist Unqualified words', 'probability': res}
+        if res<0.5:
+            dict = {'data': 'reply success'}
+        save_reply_letter(letter_id, username, context, res)
+
+
         data = json.dumps(dict)
     return HttpResponse(data)
 
