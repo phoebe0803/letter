@@ -44,6 +44,7 @@ def show_receive_reply_letter(username,page):
     for i in res:
             num = num + 1
             t = {
+                "reply_id":i[8],
                 "reply_context": i[10],
                 "read_flag": i[12],
                 "collect_flag":i[13]
