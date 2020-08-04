@@ -103,10 +103,10 @@ def show_all_my_letter(username,page,which_right):
     which_right=int(which_right)
     # 公开
     if which_right==0:
-        sql = '''select * from myapp_letter where username="{}" and right=0 and  probability<0.5'''.format(username)
+        sql = '''select * from myapp_letter where username="{}" and right=0 and  probability<0.7'''.format(username)
     #隐私
     if which_right==1:
-        sql = '''select * from myapp_letter where username="{}" and right=1 and  probability<0.5 '''.format(username)
+        sql = '''select * from myapp_letter where username="{}" and right=1 and  probability<0.7 '''.format(username)
     #草稿
     if which_right==2:
         sql='''select * from myapp_letter where username="{}" and flag=0 '''.format(username)
