@@ -326,3 +326,12 @@ def show_rubbish_letter(req):
         data = json.dumps(dict)
     return HttpResponse(data)
 
+def delete_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['letterID']
+        sql='''UPDATE myapp_letter SET "delete"=1 WHERE id={};'''.format(letter_id)
+        connect(sql)
+        dict = {'data': 'delete success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)
