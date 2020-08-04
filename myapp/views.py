@@ -335,3 +335,13 @@ def delete_letter(req):
         dict = {'data': 'delete success'}
         data = json.dumps(dict)
     return HttpResponse(data)
+
+def completely_delete_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['letterID']
+        sql = '''delete from myapp_letter WHERE id={};'''.format(letter_id)
+        connect(sql)
+        dict = {'data': 'delete success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)
