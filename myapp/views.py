@@ -3,7 +3,7 @@
 from django.shortcuts import render
 from myapp.mysql import connect
 from myapp.models import User
-from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,delete_collect_letter_from_table,show_all_my_letter
+from handle.letter import save,get_letter,get_all_letter,insert_collect_letter,delete_collect_letter_from_table,show_all_my_letter,show_my_rubbish_letter
 from handle.reply_letter import save_reply_letter,show_reply_letter,show_receive_reply_letter
 from handle.xinli import  get_message,get_xinli_all_message,do_collect_xinli,delete_collect_xinli_from_table
 from handle.show_all_collect import  show_my_letter_reply_collect,show_xinli_collect
@@ -316,3 +316,13 @@ def report_reply_letter(req):
         dict = {'data': 'report success'}
         data = json.dumps(dict)
     return HttpResponse(data)
+
+def show_rubbish_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        username = dic['username']
+        page = dic['page']
+        dict=show_my_rubbish_letter(username, page)
+        data = json.dumps(dict)
+    return HttpResponse(data)
+

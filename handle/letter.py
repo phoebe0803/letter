@@ -126,3 +126,23 @@ def show_all_my_letter(username,page,which_right):
     data_list.append(t)
     return data_list
 
+def show_my_rubbish_letter(username,page):
+    page = int(page)
+    start = (page - 1) * 4
+    end = page * 4
+    sql='''select * from myapp_letter where "delete"=1 and username={}'''.format(username)
+    res = connect(sql)
+    data_list = []
+    num = 0
+    for i in res:
+        t = {
+            "letter_topic": i[4],
+            "letterID": i[0],
+            "context": i[2],
+        }
+        num = num + 1
+        data_list.append(t)
+    data_list = data_list[start:end]
+    t = {"all_count": num}
+    data_list.append(t)
+    return data_list
