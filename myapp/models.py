@@ -15,6 +15,7 @@ class Letter(models.Model):
     #delete:"0,1"(1删除了)
     delete=models.IntegerField(default=0)
     probability = models.CharField(max_length=56, default='')
+    report = models.IntegerField(default=0)
 
 class Xinli(models.Model):
     topic=models.CharField(max_length=64,default='')
@@ -41,4 +42,5 @@ class reply_letter(models.Model):
     read_flag=models.IntegerField(default=0)
     collect_flag=models.IntegerField(default=0)
     probability=models.CharField(max_length=56,default='')
+    report = models.IntegerField(default=0)
 

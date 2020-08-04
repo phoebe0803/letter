@@ -297,4 +297,22 @@ def unread_to_read(req):
         data = json.dumps(dict)
     return HttpResponse(data)
 
+def report_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['letterID']
+        sql = '''UPDATE myapp_letter SET report=1 WHERE id={}; '''.format(letter_id)
+        connect(sql)
+        dict = {'data': 'report success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)
 
+def report_reply_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['reply_id']
+        sql = '''UPDATE myapp_letter SET report=1 WHERE id={}; '''.format(reply_id)
+        connect(sql)
+        dict = {'data': 'report success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)

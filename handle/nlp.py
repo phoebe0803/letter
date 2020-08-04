@@ -14,7 +14,8 @@ def phrase_analyse(context):
 
     if response:
         a=response.json()
-        #res=json.dumps(a, encoding="UTF-8", ensure_ascii=False)
+        res=json.dumps(a, encoding="UTF-8", ensure_ascii=False)
+        print(res)
         if a['conclusion']=="合规":
             check_probability=0
         else:
@@ -22,7 +23,8 @@ def phrase_analyse(context):
 
         return check_probability
 
-# if __name__=="__main__":
-#     print("main")
-#     text = "随随便便去死不是一个好傻逼的事情lidan"
-#     phrase_analyse(text)
+
+if __name__=="__main__":
+    print("main")
+    text = "不要随随便便就去死"
+    phrase_analyse(text)
