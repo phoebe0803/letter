@@ -310,7 +310,7 @@ def report_letter(req):
 def report_reply_letter(req):
     if req.method == "GET" or req.method == "POST":
         dic = req.GET.dict()
-        letter_id = dic['reply_id']
+        reply_id = dic['reply_id']
         sql = '''UPDATE myapp_letter SET report=1 WHERE id={}; '''.format(reply_id)
         connect(sql)
         dict = {'data': 'report success'}
