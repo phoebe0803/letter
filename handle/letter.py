@@ -130,7 +130,7 @@ def show_my_rubbish_letter(username,page):
     page = int(page)
     start = (page - 1) * 4
     end = page * 4
-    sql='''select * from myapp_letter where "delete"=1 and username={}'''.format(username)
+    sql='''select * from myapp_letter where "delete"=1 and username="{}"'''.format(username)
     res = connect(sql)
     data_list = []
     num = 0
