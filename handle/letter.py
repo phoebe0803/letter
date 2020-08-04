@@ -18,7 +18,7 @@ def get_letter(letter_topic,page,username):
     page=int(page)
     start=(page-1)*6
     end=page*6
-    sql = '''select * from myapp_letter where "right"=0 and flag=1 and letter_topic="{}" and "delete"=0 and  probability<0.5'''.format(letter_topic)
+    sql = '''select * from myapp_letter where "right"=0 and flag=1 and letter_topic="{}" and "delete"=0 and  probability<0.7'''.format(letter_topic)
 
     res = connect(sql)
     ## todo sql2
@@ -38,7 +38,7 @@ def get_letter(letter_topic,page,username):
             t["collect_flag"]=1
         data_list.append(t)
     data_list = data_list[start:end]
-    sql2='''select count(*) from myapp_letter where "right"=0 and flag=1 and letter_topic="{}" and "delete"=0 and  probability<0.5'''.format(letter_topic)
+    sql2='''select count(*) from myapp_letter where "right"=0 and flag=1 and letter_topic="{}" and "delete"=0 and  probability<0.7'''.format(letter_topic)
     res2 = connect(sql2)
     for i in res2:
         num=i[0]
@@ -50,7 +50,7 @@ def get_all_letter(page,username):
     page = int(page)
     start = (page - 1) * 6
     end = page * 6
-    sql = '''select * from myapp_letter where "right"=0 and flag=1  and "delete"=0 and  probability<0.5'''
+    sql = '''select * from myapp_letter where "right"=0 and flag=1  and "delete"=0 and  probability<0.7'''
     res = connect(sql)
     data_list = []
     for i in res:
@@ -70,7 +70,7 @@ def get_all_letter(page,username):
 
         data_list.append(t)
     data_list = data_list[start:end]
-    sql2 = '''select count(*) from myapp_letter where "right"=0 and flag=1  and "delete"=0 and  probability<0.5'''
+    sql2 = '''select count(*) from myapp_letter where "right"=0 and flag=1  and "delete"=0 and  probability<0.7'''
     res2 = connect(sql2)
     for i in res2:
         num = i[0]
@@ -103,13 +103,13 @@ def show_all_my_letter(username,page,which_right):
     which_right=int(which_right)
     # 公开
     if which_right==0:
-        sql = '''select * from myapp_letter where username="{}" and right=0 and  probability<0.7'''.format(username)
+        sql = '''select * from myapp_letter where username="{}" and right=0 and  probability<0.7 and "delete"=0 '''.format(username)
     #隐私
     if which_right==1:
-        sql = '''select * from myapp_letter where username="{}" and right=1 and  probability<0.7 '''.format(username)
+        sql = '''select * from myapp_letter where username="{}" and right=1 and  probability<0.7 and "delete"=0 '''.format(username)
     #草稿
     if which_right==2:
-        sql='''select * from myapp_letter where username="{}" and flag=0 '''.format(username)
+        sql='''select * from myapp_letter where username="{}" and flag=0 and "delete"=0 '''.format(username)
     res=connect(sql)
     data_list=[]
     num=0

@@ -345,3 +345,24 @@ def completely_delete_letter(req):
         dict = {'data': 'delete success'}
         data = json.dumps(dict)
     return HttpResponse(data)
+
+def recover_delete_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['letterID']
+        sql = '''update myapp_letter set "delete"=0 WHERE id={};'''.format(letter_id)
+        connect(sql)
+        dict = {'data': 'recover success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)
+
+def edit_letter(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        letter_id = dic['letterID']
+        context = dic['context']
+        sql = '''update myapp_letter set context="{}" WHERE id={};'''.format(context,letter_id)
+        connect(sql)
+        dict = {'data': 'edit success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)

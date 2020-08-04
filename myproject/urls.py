@@ -46,6 +46,7 @@ urlpatterns = [
     re_path(r'^show_rubbish_letter$', views.show_rubbish_letter),
     re_path(r'^delete_letter$', views.delete_letter),
     re_path(r'^completely_delete_letter$', views.completely_delete_letter),
+    re_path(r'^edit_letter$', views.edit_letter),
 
     re_path(r'^getSession$',views.getSession),
     re_path(r'^logout$',views.logout),
