@@ -361,7 +361,10 @@ def edit_letter(req):
         dic = req.GET.dict()
         letter_id = dic['letterID']
         context = dic['context']
-        sql = '''update myapp_letter set context="{}" WHERE id={};'''.format(context,letter_id)
+        letter_topic = dic['letter_topic']
+        right = int(dic['right'])
+        flag = int(dic['flag'])
+        sql = '''update myapp_letter set context="{}" WHERE id={} and letter_topic="{}" and right={} and flag={}'''.format(context,letter_id,letter_topic,right,flag)
         connect(sql)
         dict = {'data': 'edit success'}
         data = json.dumps(dict)
