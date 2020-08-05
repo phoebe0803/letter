@@ -375,7 +375,7 @@ def correct_password(req):
         dic = req.GET.dict()
         username = dic['username']
         password = dic['password']
-        sql = '''update myapp_user set password="{}" WHERE username={}'''.format(password, username)
+        sql = '''update myapp_user set password="{}" WHERE username="{}"'''.format(password, username)
         connect(sql)
         dict = {'data': 'success'}
         data = json.dumps(dict)
