@@ -23,13 +23,13 @@ def show_my_letter_reply_collect(username,page):
     num=0
     for i in res:
         num=num+1
-        sql2='''select * from myapp_letter where id={} and  probability<0.5'''.format(i[2])
+        sql2='''select * from myapp_letter where id={} and  probability<0.7'''.format(i[2])
         res2=connect(sql2)
         for j in res2:
             t={
                 "context":j[2],
                 "collect_flag":1,
-                "letter_id":i[0]
+                "letter_id":i[2]
 
             }
             data_list.append(t)
