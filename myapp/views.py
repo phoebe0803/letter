@@ -369,3 +369,14 @@ def edit_letter(req):
         dict = {'data': 'edit success'}
         data = json.dumps(dict)
     return HttpResponse(data)
+
+def correct_password(req):
+    if req.method == "GET" or req.method == "POST":
+        dic = req.GET.dict()
+        username = dic['username']
+        password = dic['password']
+        sql = '''update myapp_user set password="{}" WHERE username={}'''.format(password, username)
+        connect(sql)
+        dict = {'data': 'success'}
+        data = json.dumps(dict)
+    return HttpResponse(data)
