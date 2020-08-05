@@ -12,6 +12,8 @@ def phrase_analyse(context):
     host='''https://aip.baidubce.com/rest/2.0/solution/v1/text_censor/v2/user_defined?access_token=24.cfd9f6e51c4479b993172c6d012916ed.2592000.1599050847.282335-21774338&text={}'''.format(text)
     response = requests.get(host)
 
+
+    check_probability=0
     if response:
         a=response.json()
         # res=json.dumps(a, encoding="UTF-8", ensure_ascii=False)
@@ -20,10 +22,9 @@ def phrase_analyse(context):
             check_probability=0
         if a['conclusion']=="疑似" and a['data'][0]['hits'][0]['words'] :
             check_probability=a['data'][0]['hits'][0]['probability']
-        if a['conclusion']=="不合格":
+        if a['conclusion']=="不合规":
             check_probability=a['data'][0]['hits'][0]['probability']
-
-        return check_probability
+    return check_probability
 
 
 if __name__=="__main__":
